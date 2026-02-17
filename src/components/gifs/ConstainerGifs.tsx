@@ -2,6 +2,7 @@
 import type { Data } from "../../types/gif/gif.interno";
 
 export default function ConstainerGifs({ data } : {data : Data[] | undefined}) {
+
   return (
     <div className="gifs-container">
       {

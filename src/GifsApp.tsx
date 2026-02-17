@@ -6,37 +6,21 @@ import Search from './components/gifs/Search'
 import PreviousSearch from './components/gifs/PreviousSearch'
 import ConstainerGifs from './components/gifs/ConstainerGifs'
 
-// Importamos los gifs mockeados
-// import { mockGifs } from './mocks-data/gifs.mock'
-import { useState } from 'react'
-
-// Actions para obtener los gifs por query
-import { getGifsByQuery } from './components/gifs/actions/get-gifs-by-query.actions'
-import type { Data } from './types/gif/gif.interno'
-
+// Hooks
+import { useGifphy } from './components/gifs/hooks/useGifphy'
 
 export default function GifsApp() {
+  const {
+    // values
+    gifs,
+    previousSearches,
 
-  const [gifs, setGifs] = useState<Data[]>([])
-  const [previousSearches, setPreviousSearches] = useState<string[]>([])
+    // handlers
+    handleSearch,
+    handleClickPreviousSearch,
+  } = useGifphy()
 
-  const handleSearch = async (search: string) => {
-    const spaceRemoved = search.trim().toLowerCase()
-    if (previousSearches.length > 4) previousSearches.pop()
-    if ((previousSearches.includes(spaceRemoved)) || (spaceRemoved.length === 0)) return
-    setPreviousSearches( prev => [spaceRemoved, ...prev])
-
-    const dataQuery: Data[] = await getGifsByQuery(search)
-    setGifs(dataQuery)
-
-  }
-
-  // todo: solo hace click, no hace la busqueda, eso se vera mas adelante
-  const handleClickPreviousSearch = (search: string) => {
-    console.log(search)
-  }
-
-  return (
+return (
     <>
       {/* Headers */}
       <Header title="Buscador de gifs" description="Descubre y comparte el gifs perfecto" />
