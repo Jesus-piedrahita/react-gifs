@@ -7,11 +7,13 @@ import { getGifsByQuery } from "../actions/get-gifs-by-query.actions";
 //types
 import type { Data } from "../../../types/gif/gif.interno";
 
+const gifCache: Record<string, Data[]> = {}
 
 export const useGifphy = () => {
 
     const [gifs, setGifs] = useState<Data[]>([])
     const [previousSearches, setPreviousSearches] = useState<string[]>([])
+
 
     const handleSearch = async (search: string) => {
     const spaceRemoved = search.trim().toLowerCase()
@@ -22,11 +24,19 @@ export const useGifphy = () => {
     const dataQuery: Data[] = await getGifsByQuery(search)
     setGifs(dataQuery)
 
+    gifCache[spaceRemoved] = dataQuery
+
     }
 
-    // todo: solo hace click, no hace la busqueda, eso se vera mas adelante
-    const handleClickPreviousSearch = (search: string) => {
-        console.log(search)
+    const handleClickPreviousSearch = async (registeredWord: string) => {
+        if (gifCache[registeredWord]) {
+            setGifs(gifCache[registeredWord])
+
+            return
+        }
+
+        const dataQuery: Data[] = await getGifsByQuery(registeredWord)
+        setGifs(dataQuery)
     }
 
     return {
