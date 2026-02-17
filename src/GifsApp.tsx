@@ -1,8 +1,3 @@
-interface HandleEquals {
-  list: string[]
-  string: string
-}
-
 // Componente genericos
 import { Header } from './components/Header'
 
@@ -18,8 +13,7 @@ import { useState } from 'react'
 
 export default function GifsApp() {
 
-  const [previousSearches, setPreviousSearches] = 
-  useState<string[]>([
+  const [previousSearches, setPreviousSearches] = useState<string[]>([
     'sitama', 'goku', 'gojo', 'one piece'
   ])
 
@@ -28,8 +22,7 @@ export default function GifsApp() {
     if (previousSearches.length > 4) previousSearches.pop()
     if ((previousSearches.includes(spaceRemoved)) || (spaceRemoved.length === 0)) return
     setPreviousSearches( prev => [spaceRemoved, ...prev])
-    
-    console.log(previousSearches)
+
   }
 
   // todo: solo hace click, no hace la busqueda, eso se vera mas adelante
