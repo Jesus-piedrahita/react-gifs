@@ -21,13 +21,13 @@ export interface Datum {
   source_post_url:            string;
   is_sticker:                 number;
   import_datetime:            Date;
-  trending_datetime:          Date | TrendingDatetimeEnum;
+  trending_datetime:          TrendingDatetime;
   images:                     Images;
+  user?:                      User;
   analytics_response_payload: string;
   analytics:                  Analytics;
   alt_text:                   string;
   is_low_contrast:            boolean;
-  user?:                      User;
 }
 
 export interface Analytics {
@@ -67,7 +67,7 @@ export enum Rating {
   G = "g",
 }
 
-export enum TrendingDatetimeEnum {
+export enum TrendingDatetime {
   The00000000000000 = "0000-00-00 00:00:00",
 }
 

@@ -7,21 +7,27 @@ import PreviousSearch from './components/gifs/PreviousSearch'
 import ConstainerGifs from './components/gifs/ConstainerGifs'
 
 // Importamos los gifs mockeados
-import { mockGifs } from './mocks-data/gifs.mock'
+// import { mockGifs } from './mocks-data/gifs.mock'
 import { useState } from 'react'
+
+// Actions para obtener los gifs por query
+import { getGifsByQuery } from './components/gifs/actions/get-gifs-by-query.actions'
+import type { Data } from './types/gif/gif.interno'
 
 
 export default function GifsApp() {
 
-  const [previousSearches, setPreviousSearches] = useState<string[]>([
-    'sitama', 'goku', 'gojo', 'one piece'
-  ])
+const [gifs, setGifs] = useState<Data[]>([])
+  const [previousSearches, setPreviousSearches] = useState<string[]>([])
 
-  const handleSearch = (search: string) => {
+  const handleSearch = async (search: string) => {
     const spaceRemoved = search.trim().toLowerCase()
     if (previousSearches.length > 4) previousSearches.pop()
     if ((previousSearches.includes(spaceRemoved)) || (spaceRemoved.length === 0)) return
     setPreviousSearches( prev => [spaceRemoved, ...prev])
+
+    const dataQuery: Data[] = await getGifsByQuery(search)
+    setGifs(dataQuery)
 
   }
 
@@ -42,7 +48,7 @@ export default function GifsApp() {
       <PreviousSearch previousSearches={previousSearches} fnClickPreviousSearch={handleClickPreviousSearch}  />
 
       {/* Container de gifs ... */}
-      <ConstainerGifs data={mockGifs} />
+      <ConstainerGifs data={gifs} />
 
     </>
   )
