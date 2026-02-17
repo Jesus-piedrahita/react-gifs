@@ -6,10 +6,10 @@ export default function ConstainerGifs({ data } : {data : Data[] | undefined}) {
     <div className="gifs-container">
       {
         data?.map(gif => (
-          <div key={gif.id} className="gif-item">
-            <img src={gif.url} alt={gif.title} width={gif.width} height={gif.height} />
-            <p>{gif.title}</p>
-            <span>{gif.width} x {gif.height}</span>
+          <div key={gif.id} className="gif-card">
+            <img src={gif.url} alt={gif.title} />
+            <h3>{gif.title}</h3>
+            <p>{gif.width} x {gif.height}</p>
           </div>
         ))
         

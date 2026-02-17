@@ -17,7 +17,7 @@ import type { Data } from './types/gif/gif.interno'
 
 export default function GifsApp() {
 
-const [gifs, setGifs] = useState<Data[]>([])
+  const [gifs, setGifs] = useState<Data[]>([])
   const [previousSearches, setPreviousSearches] = useState<string[]>([])
 
   const handleSearch = async (search: string) => {
