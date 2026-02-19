@@ -1,0 +1,13 @@
+import { describe, expect, test } from 'vitest';
+import { render } from '@testing-library/react';
+
+// componentes
+import GifsApp from './GifsApp';
+
+
+describe ('GifsApp', () => {
+    test ('should render the GifsApp component', () => {
+        const { container} = render(<GifsApp />)
+        expect(container).toMatchSnapshot()
+    })
+})
